@@ -1,21 +1,32 @@
-import React, { useState } from 'react';
-import { Container, Item, Input, Button, Label, Form, Content, Body } from 'native-base';
-import { StyleSheet, Text } from 'react-native';
-import { getEntities } from '../api/api';
+import React, { useState } from "react";
+import {
+  Container,
+  Item,
+  Input,
+  Button,
+  Label,
+  Form,
+  Content,
+  Body
+} from "native-base";
+import { StyleSheet, Text } from "react-native";
+import { getEntities } from "../api/api";
 
-export default function RantScreen(props) {
-  const [userInput, setUserInput] = useState('');
+export default function RantScreen({ navigation }) {
+  const [userInput, setUserInput] = useState("");
 
   return (
     <Container>
       <Content>
         <Form style={{ marginBottom: 5 }}>
           <Item stackedLabel>
-            <Label style={{ marginBottom: 5 }}>Rant about your community concerns</Label>
+            <Label style={{ marginBottom: 5 }}>
+              Rant about your community concerns
+            </Label>
             <Input
               multiline
               value={userInput}
-              onChangeText={(text) => setUserInput(text)}
+              onChangeText={text => setUserInput(text)}
             />
           </Item>
         </Form>
@@ -24,7 +35,8 @@ export default function RantScreen(props) {
             primary
             style={styles.button}
             onPress={async () => {
-              let entities = await getEntities(userInput)
+              let entities = await getEntities(userInput);
+              navigation.navigate("Tags", { entities: entities });
               console.log(entities);
             }}
           >
@@ -38,12 +50,12 @@ export default function RantScreen(props) {
 
 const styles = StyleSheet.create({
   button: {
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     paddingLeft: 10,
     paddingRight: 10,
     borderRadius: 5
   }
-})
+});
 
 RantScreen.navigationOptions = {
   title: "Tell us more about yourself"
