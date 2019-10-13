@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import { Animated, ScrollView, StyleSheet, View, Text } from "react-native";
-
-const test_list = ["a", "b", "c"];
+import { Animated, StyleSheet, View, Text } from "react-native";
 
 export default class TagsScreen extends Component {
-  constructor() {
+  constructor(props) {
     super();
     // TODO NOT WORKING
-    const { navigation } = this.props;
+    const { navigation } = props;
     this.state = {
-      valueArray: navigation.getParam("Entities", []),
+      valueArray: navigation.getParam("entities", []),
       disabled: false
     };
     this.animatedValue = new Animated.Value(0);
