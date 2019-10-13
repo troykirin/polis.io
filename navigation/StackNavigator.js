@@ -72,7 +72,7 @@ const StackNavigator = createStackNavigator(
       navigationOptions: ({ navigation }) => ({})
     }
   },
-  { initialRouteName: "Login" }
+  { initialRouteName: "Rant" } // rant for dev ; otherwise leave "Login"
 );
 
 export default StackNavigator;
