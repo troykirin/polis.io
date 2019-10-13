@@ -6,6 +6,8 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import LoginScreen from '../screens/LoginScreen';
+import SignupScreen from '../screens/SignupScreen';
 import RantScreen from '../screens/RantScreen';
 
 const config = Platform.select({
@@ -68,6 +70,38 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = '';
 
+const LoginStack = createStackNavigator(
+  {
+    Login: LoginScreen,
+  },
+  config
+);
+
+LoginStack.navigationOptions = {
+  tabBarLabel: 'Login',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+  ),
+};
+
+LoginStack.path = '';
+
+const SignupStack = createStackNavigator(
+  {
+    Signup: SignupScreen,
+  },
+  config
+);
+
+SignupStack.navigationOptions = {
+  tabBarLabel: 'Sign Up',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+  ),
+};
+
+SignupStack.path = '';
+
 const RantStack = createStackNavigator(
   {
     Rank: RantScreen,
@@ -88,6 +122,8 @@ const tabNavigator = createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
+  LoginStack,
+  SignupStack,
   RantStack,
 });
 
