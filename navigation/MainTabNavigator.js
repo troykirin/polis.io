@@ -8,6 +8,7 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
+import RantScreen from '../screens/RantScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -101,12 +102,29 @@ SignupStack.navigationOptions = {
 
 SignupStack.path = '';
 
+const RantStack = createStackNavigator(
+  {
+    Rank: RantScreen,
+  },
+  config
+);
+
+RantStack.navigationOptions = {
+  tabBarLabel: 'Rant',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+  ),
+};
+
+RantStack.path = '';
+
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
   LoginStack,
-  SignupStack
+  SignupStack,
+  RantStack,
 });
 
 tabNavigator.path = '';
