@@ -23,8 +23,8 @@ export default function RantScreen(props) {
           <Button
             primary
             style={styles.button}
-            onPress={() => {
-              let entities = getEntities(userInput)
+            onPress={async () => {
+              let entities = await getEntities(userInput)
               console.log(entities);
             }}
           >
