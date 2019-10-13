@@ -3,12 +3,11 @@ import { Animated, ScrollView, StyleSheet, View, Text } from "react-native";
 
 const test_list = ["a", "b", "c"];
 
-export default class App extends Component {
+export default class TagsScreen extends Component {
   constructor() {
     super();
 
     this.state = { valueArray: test_list, disabled: false };
-    this.index = 0;
     this.animatedValue = new Animated.Value(0);
   }
 
@@ -19,29 +18,29 @@ export default class App extends Component {
     });
 
     let newArray = this.state.valueArray.map((item, key) => {
-      if (key == this.index) {
-        return (
-          <Animated.View
-            key={key}
-            style={[
-              styles.viewHolder,
-              {
-                opacity: this.animatedValue,
-                transform: [{ translateY: animationValue }]
-              }
-            ]}
-          >
-            <Text style={styles.headerText}>Row {item.index}</Text>
-          </Animated.View>
-        );
-      }
+      console.log(item);
+      return (
+        <View
+          key={key}
+          style={
+            [
+              // styles.viewHolder,
+              // {
+              //   opacity: this.animatedValue,
+              // //   transform: [{ translateY: animationValue }]
+              // }
+            ]
+          }
+        >
+          <Text style={styles.headerText}>{item}</Text>
+        </View>
+      );
     });
 
     return (
       <View style={styles.container}>
-        <ScrollView>
-          <View style={{ flex: 1, padding: 4 }}>{newArray}</View>
-        </ScrollView>
+        <Text>HELLO</Text>
+        {newArray}
       </View>
     );
   }
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
     margin: 4
   },
   headerText: {
-    color: "white",
+    color: "black",
     fontSize: 25
   },
   buttonDesign: {

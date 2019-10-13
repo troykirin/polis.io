@@ -17,6 +17,12 @@ const config = Platform.select({
   default: {}
 });
 
+const MainStack = createStackNavigator({
+  Home: HomeScreen,
+  Rant: RantScreen,
+  Tags: TagsScreen
+});
+
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen
