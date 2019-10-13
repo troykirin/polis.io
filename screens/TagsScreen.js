@@ -6,8 +6,12 @@ const test_list = ["a", "b", "c"];
 export default class TagsScreen extends Component {
   constructor() {
     super();
-
-    this.state = { valueArray: test_list, disabled: false };
+    // TODO NOT WORKING
+    const { navigation } = this.props;
+    this.state = {
+      valueArray: navigation.getParam("Entities", []),
+      disabled: false
+    };
     this.animatedValue = new Animated.Value(0);
   }
 
