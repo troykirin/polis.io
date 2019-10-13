@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button } from 'react-native';
+import { loginUser } from '../api/firebase';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -21,12 +22,21 @@ export default function LoginScreen() {
             placeholder='Password'
             secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity 
+            style={styles.button} 
+            onPress={() => handleLogin(email, password)}
+        >
             <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <Button title="Don't have an account yet? Sign up" />
     </View>
   );
+}
+
+function handleLogin(email, password) {
+    loginUser(email, password)
+        .then(() => {/* TODO: Add navigate to HOME, check for first sign in */ console.log("LOGGED IN")})
+        .catch((err) => {console.log(err.message)})
 }
 
 const styles = StyleSheet.create({
