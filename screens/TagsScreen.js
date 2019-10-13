@@ -1,50 +1,32 @@
-import React, { Component } from "react";
-import { Animated, StyleSheet, View, Text } from "react-native";
+import React, { useState } from "react";
+import { Animated, StyleSheet, Text } from "react-native";
+import { Content } from "native-base";
+import ToggleCard from "../components/ToggleCard";
 
-export default class TagsScreen extends Component {
-  constructor(props) {
-    super();
-    // TODO NOT WORKING
-    const { navigation } = props;
-    this.state = {
-      valueArray: navigation.getParam("entities", []),
-      disabled: false
-    };
-    this.animatedValue = new Animated.Value(0);
-  }
+export default function TagsScreen(props) {
 
-  render() {
-    const animationValue = this.animatedValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [-59, 0]
-    });
+  const { navigation } = props;
+  const [entities, setEntities] = useState(navigation.getParam("entities", []));
+  const [userEntities, setUserEntities] = useState([]);
+  const [disabled, setDisabled] = useState(false);
 
-    let newArray = this.state.valueArray.map((item, key) => {
-      console.log(item);
-      return (
-        <View
-          key={key}
-          style={
-            [
-              // styles.viewHolder,
-              // {
-              //   opacity: this.animatedValue,
-              // //   transform: [{ translateY: animationValue }]
-              // }
-            ]
-          }
-        >
-          <Text style={styles.headerText}>{item}</Text>
-        </View>
-      );
-    });
-
+  const newArray = entities.map((item, key) => {
     return (
-      <View style={styles.container}>
-        <Text>HELLO</Text>
-        {newArray}
-      </View>
+      <ToggleCard
+        key={key}
+        item={item}
+      />
     );
+  });
+
+  return (
+    <Content style={styles.container}>
+      {newArray}
+    </Content>
+  );
+
+  function selectCard(item) {
+
   }
 }
 
