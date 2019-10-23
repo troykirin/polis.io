@@ -2,49 +2,30 @@ import React, { Component } from "react";
 import { Card, CardItem, Body, Switch } from "native-base";
 import { Text, StyleSheet } from "react-native";
 
-export default class ToggleCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isToggleOn: true
-    };
+import React from 'react';
+import { Card, CardItem, Body, Badge } from 'native-base';
+import { Text } from 'react-native';
 
-    this.toggleCard = this.toggleCard.bind(this);
-  }
-
-  toggleCard() {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }));
-  }
-
-  render() {
+export default function ToggleCard(props) {
+  const generateTopicText = props.topics.map((item, key) => {
     return (
-      <Card
-        style={{
-          marginLeft: 20,
-          marginRight: 20,
-          marginTop: 20,
-          backgroundColor: this.state.isToggleOn ? "white" : "blue"
-        }}
-      >
-        <CardItem button onPress={this.toggleCard}>
-          <Body>
-            <Text>{this.props.item}</Text>
-          </Body>
-        </CardItem>
-      </Card>
-    );
-  }
-}
+      <Badge key={key} style={{ padding: 5, marginRight: 10, backgroundColor: "#4A6D7C" }}><Text style={{ color: "white", fontWeight: "bold" }}>{item}</Text></Badge>
+    )
+  })
 
-const styles = StyleSheet.create({
-  off: {
-    backgroundColor: "white",
-    color: "black"
-  },
-  on: {
-    backgroundColor: "blue",
-    color: "white"
-  }
-});
+  return (
+    <Card style={{ marginLeft: 15, marginRight: 15, marginTop: 15, marginBottom: 15 }}>
+      <CardItem header>
+        {generateTopicText}
+      </CardItem>
+      <CardItem>
+        <Body>
+          <Text>{props.rant}</Text>
+        </Body>
+      </CardItem>
+      <CardItem footer>
+        <Text>{props.locationText}</Text>
+      </CardItem>
+    </Card>
+  )
+}

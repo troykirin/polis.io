@@ -3,17 +3,19 @@ import {
   Container,
   Item,
   Input,
-  Button,
   Label,
   Form,
   Content,
   Body
 } from "native-base";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { getEntities } from "../api/api";
+import { addTagsAndInputToUser } from "../api/firebase";
 
 export default function RantScreen({ navigation }) {
   const [userInput, setUserInput] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const uid = navigation.getParam("uid", "");
 
   return (
     <Container>
@@ -29,19 +31,27 @@ export default function RantScreen({ navigation }) {
               onChangeText={text => setUserInput(text)}
             />
           </Item>
+          <Item stackedLabel>
+            <Label style={{ marginBottom: 5 }}>
+              Give us your Zip Code
+            </Label>
+            <Input
+              value={zipcode}
+              onChangeText={text => setZipcode(text)}
+            />
+          </Item>
         </Form>
         <Body>
-          <Button
-            primary
+          <TouchableOpacity
             style={styles.button}
             onPress={async () => {
               let entities = await getEntities(userInput);
+              await addTagsAndInputToUser(entities, userInput);
               navigation.navigate("Tags", { entities: entities });
-              console.log(entities);
             }}
           >
-            <Text> Next </Text>
-          </Button>
+            <Text style={styles.buttonText}> Next </Text>
+          </TouchableOpacity>
         </Body>
       </Content>
     </Container>
@@ -50,13 +60,24 @@ export default function RantScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   button: {
-    justifyContent: "flex-start",
-    paddingLeft: 10,
-    paddingRight: 10,
-    borderRadius: 5
-  }
+    marginTop: 30,
+    marginBottom: 20,
+    paddingVertical: 5,
+    alignItems: "center",
+    backgroundColor: "#4A6D7C",
+    borderColor: "#4A6D7C",
+    borderWidth: 1,
+    borderRadius: 5,
+    width: 200
+  },
+  buttonText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fff"
+  },
 });
 
 RantScreen.navigationOptions = {
-  title: "Tell us more about yourself"
+  title: "Tell us more about yourself",
+  headerLeft: null
 };
